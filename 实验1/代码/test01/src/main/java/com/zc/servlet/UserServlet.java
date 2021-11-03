@@ -122,7 +122,7 @@ public class UserServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        user.setSex("sex");
+        user.setSex(sex);
         ResultBean save = userService.save(user);
         String s = JSON.toJSONString(save);
         JSONObject jsonObject = JSON.parseObject(s);
@@ -142,6 +142,22 @@ public class UserServlet extends HttpServlet {
         int i = Integer.parseInt(id);
         ResultBean del = userService.del(i);
         JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(del));
+        PrintWriter out = response.getWriter();
+        out.println(jsonObject);
+    }
+
+    /**
+     * 根据id查询用户
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void listByUid(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+        String id = request.getParameter("id");
+        Integer i = Integer.parseInt(id);
+        ResultBean resultBean = userService.queryById(i);
+        JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(resultBean));
         PrintWriter out = response.getWriter();
         out.println(jsonObject);
     }

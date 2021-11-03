@@ -38,6 +38,7 @@
 </head>
 <body>
 <div style="width:1000px;margin: 100px auto">
+    <button type="button" class="btn btn-primary">添加</button>
     <table class="table table-bordered" style="width: 900px;">
         <tr>
             <th>编号</th>
@@ -55,7 +56,7 @@
                 <td>${user.birthday}</td>
                 <td>${user.sex}</td>
                 <td>
-                    <button type="button" class="btn btn-primary">添加</button>
+
                     <button type="button" class="btn btn-success">修改</button>
                     <button type="button" class="btn btn-danger">删除</button>
                 </td>

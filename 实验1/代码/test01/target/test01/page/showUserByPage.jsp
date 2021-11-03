@@ -51,6 +51,7 @@
     request.setAttribute("pageCount",pageInfo.getPageCount());
 %>
 <div style="width:1000px;margin: 100px auto">
+    <button type="button" class="btn btn-primary" onclick="showAddModel()">添加</button>
     <table class="table table-bordered" style="width: 900px;">
         <tr>
             <th>编号</th>
@@ -68,8 +69,7 @@
                 <td>${user.birthday}</td>
                 <td>${user.sex}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加</button>
-                    <button type="button" class="btn btn-success">修改</button>
+                    <button type="button" class="btn btn-success" onclick="upUser('${user.id}')">修改</button>
                     <button type="button" class="btn btn-danger delBtn" onclick="delUser('${user.id}')">删除</button>
                 </td>
             </tr>
@@ -85,24 +85,95 @@
 
     <%--s-添加模态框--%>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="proAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">添加用户</h4>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="username"  value="" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="password"  value="" placeholder="密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday" class="col-sm-2 control-label">生日</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="birthday"  value="" placeholder="格式如2020-01-02">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sex" class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="sex"  value="" placeholder="性别">
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="addUser()">保存</button>
                 </div>
             </div>
         </div>
     </div>
     <%--e-添加模态框--%>
+
+
+    <%--s-添加模态框--%>
+    <!-- Modal -->
+    <div class="modal fade" id="proUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel1">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="username1" class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="username1"  value="" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="password1"  value="" placeholder="密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday1" class="col-sm-2 control-label">生日</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="birthday1"  value="" placeholder="格式如2020-01-02">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sex" class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="sex1"  value="" placeholder="性别">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="updateUser()">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <script type="text/javascript" src="../static/layui/layui.js"></script>
@@ -112,9 +183,47 @@
         layer = layui.layer;
     });
 
-    $('#myModal').modal({
-        backdrop:'static'
-    })
+    /*展示商品添加model*/
+    function showAddModel() {
+        $("#proAddModal").modal({
+            backdrop: "static"
+        })
+    }
+
+    /*添加*/
+    function addUser(){
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var birthday = $("#birthday").val();
+        var sex  = $("#sex").val();
+
+        $.ajax({
+            type: 'get',
+            url: '${pageContext.request.contextPath}/add.user',
+            dataType: 'json',
+            data:{
+                'username':username,
+                'password':password,
+                'birthday':birthday,
+                'sex':sex,
+            },
+            success:function (data){
+                if(data.code==1000){
+                    layer.confirm("添加成功",{
+                        title:"提示",
+                        icon:1
+                    },function(index){
+                        window.location.href="${pageContext.request.contextPath}/pageList.user"
+                    })
+                }else{
+                    layer.open({
+                        title: '提示'
+                        ,content: "添加失败!"
+                        ,icon:2});
+                }
+            }
+        })
+    }
 
     /**
      * 根据id编号删除数据
@@ -143,5 +252,37 @@
             }
         })
     }
+
+    /*展示商品修改数据回填模态框*/
+    // function showAddModel() {
+    //     $("#proUpModal").modal({
+    //         backdrop: "static"
+    //     })
+    // }
+    function upUser(id){
+        $.ajax({
+            url:'${pageContext.request.contextPath}/listByUid.user',
+            type:'get',
+            data:{
+                'id':id,
+            },
+            dataType:'json',
+            success:function (data){
+                console.log(data)
+                if(data.code==1000){
+                    $("#proUpModal").modal({
+                        backdrop: "static"
+                    });
+                    console.log(data.data.username)
+                    console.log($("#username1").val)
+                    $("#username1").val = data.data.username;
+                    $("#password1").val = data.data.password;
+                    $("#birthday1").val = data.data.birthday;
+                    $("#sex1").val = data.data.sex;
+                }
+            }
+        })
+    }
+
 </script>
 </html>
