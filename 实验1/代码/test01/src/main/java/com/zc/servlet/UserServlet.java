@@ -161,4 +161,32 @@ public class UserServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println(jsonObject);
     }
+
+    /**
+     * 修改数据
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException{
+        User user = new User();
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        String username = request.getParameter("username");
+        String pasword = request.getParameter("password");
+        String date = request.getParameter("birthday");
+        String sex = request.getParameter("sex");
+        user.setId(id);
+        user.setUsername(username);
+        user.setPassword(pasword);
+        try {
+            user.setBirthday(StringUtils.stringToDate(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        user.setSex(sex);
+        ResultBean updated = userService.updated(user);
+        JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(updated));
+        response.getWriter().println(jsonObject);
+    }
 }

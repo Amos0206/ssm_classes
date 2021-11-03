@@ -130,7 +130,7 @@
     <%--e-添加模态框--%>
 
 
-    <%--s-添加模态框--%>
+    <%--s-修改模态框--%>
     <!-- Modal -->
     <div class="modal fade" id="proUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -141,6 +141,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
+                        <input type="hidden" value="" id="uid">
                         <div class="form-group">
                             <label for="username1" class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-10">
@@ -162,7 +163,7 @@
                         <div class="form-group">
                             <label for="sex" class="col-sm-2 control-label">性别</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="sex1"  value="" placeholder="性别">
+                                <input type="email" class="form-control" id="sex1"  value="sex" placeholder="性别">
                             </div>
                         </div>
                     </form>
@@ -254,11 +255,6 @@
     }
 
     /*展示商品修改数据回填模态框*/
-    // function showAddModel() {
-    //     $("#proUpModal").modal({
-    //         backdrop: "static"
-    //     })
-    // }
     function upUser(id){
         $.ajax({
             url:'${pageContext.request.contextPath}/listByUid.user',
@@ -274,11 +270,49 @@
                         backdrop: "static"
                     });
                     console.log(data.data.username)
-                    console.log($("#username1").val)
-                    $("#username1").val = data.data.username;
-                    $("#password1").val = data.data.password;
-                    $("#birthday1").val = data.data.birthday;
-                    $("#sex1").val = data.data.sex;
+                    $("#uid").val(data.data.id);
+                    $("#username1").val(data.data.username);
+                    $("#password1").val(data.data.password);
+                    $("#birthday1").val(data.data.birthday);
+                    $("#sex1").val(data.data.sex);
+                }
+            }
+        })
+    }
+    function updateUser(){
+        var id =$("#uid").val();
+        var username = $("#username1").val();
+        var password = $("#password1").val();
+        var birthday = $("#birthday1").val();
+        var sex  = $("#sex1").val();
+        // console.log(username)
+        // console.log(password)
+        // console.log(birthday)
+        // console.log(sex)
+        $.ajax({
+            type: 'get',
+            url: '${pageContext.request.contextPath}/update.user',
+            dataType: 'json',
+            data:{
+                'id':id,
+                'username':username,
+                'password':password,
+                'birthday':birthday,
+                'sex':sex,
+            },
+            success:function (data){
+                if(data.code==1000){
+                    layer.confirm("修改成功",{
+                        title:"提示",
+                        icon:1
+                    },function(index){
+                        window.location.href="${pageContext.request.contextPath}/pageList.user"
+                    })
+                }else{
+                    layer.open({
+                        title: '提示'
+                        ,content: "修改失败!"
+                        ,icon:2});
                 }
             }
         })
