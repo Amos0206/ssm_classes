@@ -64,7 +64,7 @@
         </div>
     </div>
 <%--    <c:if test="${items}!=null">--%>
-
+    <c:if test="${not empty items}">
     <div class="row">
         <div class="col-xs-12">
             <table class="table table-bordered">
@@ -90,9 +90,11 @@
                     </td>
                 <tr>
                     </c:forEach>
+<%--                </c:if>--%>
+
             </table>
         </div>
-<%--        </c:if>--%>
+        </c:if>
     </div>
 </div>
 <script type="text/javascript">

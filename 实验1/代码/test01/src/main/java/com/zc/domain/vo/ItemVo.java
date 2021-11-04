@@ -4,6 +4,7 @@ import com.zc.domain.Item;
 import com.zc.domain.Itemcategory;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class ItemVo{
+public class ItemVo implements Serializable {
     private int id;
     private String name;
     private Double price;

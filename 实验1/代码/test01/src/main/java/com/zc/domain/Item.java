@@ -2,6 +2,7 @@ package com.zc.domain;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class Item {
+public class Item implements Serializable {
     private int id;
     private String name;
     private Double price;

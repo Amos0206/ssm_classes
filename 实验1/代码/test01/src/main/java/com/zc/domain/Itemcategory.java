@@ -3,6 +3,7 @@ package com.zc.domain;
 import com.alibaba.druid.filter.AutoLoad;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class Itemcategory {
+public class Itemcategory implements Serializable {
     private Integer cid;
     private String cateName;
     private String CREATED_BY;
