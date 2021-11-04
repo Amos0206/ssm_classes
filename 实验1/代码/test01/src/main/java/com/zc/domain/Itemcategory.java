@@ -1,6 +1,5 @@
 package com.zc.domain;
 
-import com.alibaba.druid.filter.AutoLoad;
 import lombok.*;
 
 import java.io.Serializable;
