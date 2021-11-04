@@ -1,5 +1,7 @@
-package com.zc.domain;
+package com.zc.domain.vo;
 
+import com.zc.domain.Item;
+import com.zc.domain.Itemcategory;
 import lombok.*;
 
 import java.util.Date;
@@ -7,7 +9,7 @@ import java.util.Date;
 /**
  * @version 1.0
  * @Author ZC
- * @date 2021/11/1 22:12
+ * @date 2021/11/3 8:42
  * @desc
  */
 @Data
@@ -16,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class Item {
+public class ItemVo{
     private int id;
     private String name;
     private Double price;
@@ -27,4 +29,5 @@ public class Item {
     private Date CREATED_TIME;
     private String UPDATED_BY;
     private Date UPDATED_TIME;
+    private String cateName;
 }

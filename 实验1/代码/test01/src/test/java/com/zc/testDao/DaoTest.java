@@ -1,7 +1,13 @@
 package com.zc.testDao;
 
+import com.zc.dao.ItemDao;
+import com.zc.dao.ItemcategoryDao;
+import com.zc.dao.impl.ItemDaoImpl;
+import com.zc.dao.impl.ItemcategoryDaoImpl;
 import com.zc.dao.impl.UserDaoImpl;
+import com.zc.domain.Itemcategory;
 import com.zc.domain.User;
+import com.zc.domain.vo.ItemVo;
 import com.zc.utils.StringUtils;
 import org.junit.Test;
 
@@ -67,5 +73,22 @@ public class DaoTest {
         UserDaoImpl userDao = new UserDaoImpl();
         int i = userDao.updateData(user);
         System.out.println(i);
+    }
+
+
+    @Test
+    public void icQueryAll(){
+        ItemcategoryDao itemcategoryDao = new ItemcategoryDaoImpl();
+        List<Itemcategory> itemcategories = itemcategoryDao.queryAll();
+        System.out.println(itemcategories);
+    }
+
+    @Test
+    public void queryByCid(){
+        ItemDao itemDao = new ItemDaoImpl();
+        List<ItemVo> itemVos = itemDao.queryBycateName("手机");
+        for (ItemVo vo: itemVos) {
+            System.out.println(vo);
+        }
     }
 }
