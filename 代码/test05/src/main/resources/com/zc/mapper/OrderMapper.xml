@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    对接口进行实现
+-->
+<mapper namespace="com.zc.dao.IOrderDao">
+    <resultMap id="baseOrder" type="com.zc.entity.Order">
+        <id property="orderId" column="order_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="productId" column="product_id"/>
+    </resultMap>
+
+
+    <select id="queryAll"  resultMap="baseOrder">
+        select order_id,user_id,product_id from
+        `order`
+    </select>
+</mapper>

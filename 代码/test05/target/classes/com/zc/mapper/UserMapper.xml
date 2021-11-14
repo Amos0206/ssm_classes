@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    对接口进行实现
+-->
+<mapper namespace="com.zc.dao.IUserDao">
+    <insert id="insertUser" parameterType="User">
+         INSERT INTO m_user(username,birthday,sex,address)
+         VALUE(#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update m_user set username = #{username} where id=#{id}
+    </update>
+
+    <select id="queryById" parameterType="Integer" resultType="User">
+        select id,username,birthday,sex,address from m_user where id = #{id}
+    </select>
+
+    <select id="queryUserByName" parameterType="String" resultType="User">
+        select * from m_user where username like '%${value}%'
+    </select>
+
+    <select id="count" resultType="Integer">
+        select count(*) from m_user
+    </select>
+
+
+    <select id="queryBySexAndName" parameterType="User" resultType="User">
+        select * from m_user
+        <where>
+            <if test="username != null || username != ''">
+                and username = #{username}
+            </if>
+            <if test="sex!=null || sex != ''">
+                and sex = #{sex}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryByManyId" parameterType="List" resultType="User">
+        select * from m_user where id in
+        <foreach collection="list" item="uid" separator="," open="(" close=")">
+            #{uid}
+        </foreach>
+    </select>
+</mapper>
