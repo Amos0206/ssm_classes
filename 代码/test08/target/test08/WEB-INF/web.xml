@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+		 version="4.0">
+	<!--配置重点：拦截交给springmvc处理-->
+
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<!-- 查找 本地配置文件;从/WEB-INF/classpath 下查找
+               如果该值不配置，则默认查找：WEB-INF/<serlvet-name> 标签的名字-servlet.xml-->
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc-mvc.xml</param-value>
+		</init-param>
+
+	</servlet>
+
+	<!--url-pattern的配置？
+        注意:可以配置/ 或 *.后缀名 不推荐/*
+        1、/*      表示拦截所有请求，包括 jsp 这样会覆盖容器中所有对应映射，使DispatcherServlet 混乱[不建议]
+        2、/       表示拦截所有请求，还可以结合restful风格； 但是，静态资源文件需要单独处理【推荐】
+        3、*.后缀   表示拦截对应带后缀的请求；可以不用单独处理静态资源文件
+
+    -->
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+</web-app>
