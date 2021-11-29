@@ -10,6 +10,6 @@ import com.zc.entity.dto.OrderAndUser;
  * @desc
  */
 public interface IOrderDao {
-    OrderAndUser orderAndUser();
-    OrderAndProduct orderDetailMap();
+    OrderAndUser quaryAll();
+    OrderAndProduct queryOrderDetail();
 }
