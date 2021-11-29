@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    对接口进行实现
+-->
+
+
+<mapper namespace="com.zc.dao.IOrderDao">
+    <resultMap id="baseMap" type="Order">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="number" column="number"/>
+        <result property="createtime" column="createtime"/>
+    </resultMap>
+
+    <resultMap id="orderAndUser" type="OrderAndUser" extends="baseMap">
+        <association property="user" javaType="User">
+            <id property="id" column="id"/>
+            <result property="username" column="username"/>
+            <result property="password" column="username"/>
+            <result property="birthday" column="birthday"/>
+            <result property="sex" column="sex"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="orderDetailMap" type="OrderAndProduct" extends="baseMap">
+        <collection property="products" ofType="Product">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="price" column="price"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryOrderDetail" resultMap="orderDetailMap">
+        select
+            o.id,o.user_id,o.number,o.createtime,
+            tp.name,tp.price
+        from t_ordersItem tos
+        inner join t_orders o
+        on tos.ordersId = o.id
+        inner join t_product  tp
+        on tos.productId = tp.id
+    </select>
+
+
+    <select id="quaryAll" resultMap="orderAndUser">
+        select
+            o.id,o.number,o.createtime
+            ,u.id ,u.username,u.password,u.birthday,u.sex
+        from t_orders o
+        inner join t_user u
+        on o.user_id = u.id
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    对接口进行实现
+-->
+<mapper namespace="com.zc.dao.IUserDao">
+
+    <resultMap id="baseMap" type="User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="username"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+
+    <resultMap id="userAndOrder" type="UserAndOrder" extends="baseMap">
+        <collection property="orders" ofType="Order">
+            <id property="id" column="id"/>
+            <result property="userId" column="user_id"/>
+            <result property="number" column="number"/>
+            <result property="createtime" column="createtime"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryAllUser" resultMap="userAndOrder">
+        select u.id ,u.username,u.password,u.birthday,u.sex,
+            o.id,o.number,o.createtime
+        from t_user u
+        inner join t_orders o
+        on u.id = o.user_id
+    </select>
+
+</mapper>
