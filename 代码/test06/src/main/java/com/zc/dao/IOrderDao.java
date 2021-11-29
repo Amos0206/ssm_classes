@@ -1,5 +1,8 @@
 package com.zc.dao;
 
+import com.zc.entity.dto.OrderAndProduct;
+import com.zc.entity.dto.OrderAndUser;
+
 /**
  * @version 1.0
  * @Author ZC
@@ -7,4 +10,6 @@ package com.zc.dao;
  * @desc
  */
 public interface IOrderDao {
+    OrderAndUser orderAndUser();
+    OrderAndProduct orderDetailMap();
 }

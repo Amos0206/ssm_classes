@@ -1,5 +1,7 @@
 package com.zc.dao;
 
+import com.zc.entity.dto.UserAndOrder;
+
 /**
  * @version 1.0
  * @Author ZC
@@ -7,4 +9,5 @@ package com.zc.dao;
  * @desc
  */
 public interface IUserDao {
+    UserAndOrder queryAllUser();
 }
