@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--1、扫描controller层-->
+    <context:component-scan base-package="com.zc.controller"/>
+
+    <!--2、处理器映射器、处理器适配器-->
+    <mvc:annotation-driven/>
+
+    <!--3、视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <!--后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 4、解决静态资源过滤问题
+     <mvc:resources mapping="" location=""/>
+     -->
+    <mvc:default-servlet-handler/>
+
+    <!--5、关联spring-service.xml-->
+    <import resource="spring-service.xml"/>
+
+    <!--6、根据需要的其他配置-->
+    <!--拦截器配置-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--*: 表示拦截/下的一层 ，**: 表示连接任意-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.zc.Interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
