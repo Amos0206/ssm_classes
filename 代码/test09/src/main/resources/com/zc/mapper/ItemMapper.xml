@@ -4,7 +4,37 @@
     对接口进行实现
 -->
 <mapper namespace="com.zc.dao.IItemDao">
-    <select id="selectAllProduct" resultType="Item">
-        select id,name,price,detail,pic,CREATED_TIME from Item;
+    <resultMap id="baseMap" type="Item">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+        <result property="detail" column="detail"/>
+        <result property="pic" column="pic"/>
+        <result property="cid" column="cid"/>
+        <result property="createBy" column="CREATED_BY"/>
+        <result property="createTime" column="CREATED_TIME"/>
+        <result property="updateBy" column="UPDATED_BY"/>
+        <result property="updateTime" column="UPDATED_TIME"/>
+    </resultMap>
+
+    <select id="selectAllProduct" resultMap="baseMap">
+        select id,name,price,detail,pic,CREATED_TIME from Item
     </select>
+
+    <select id="queryById" resultMap="baseMap">
+        select id,name,price,detail,pic,CREATED_TIME from Item
+        where id  = #{id}
+    </select>
+
+    <delete id="delItem" parameterType="Integer">
+        delete from Item where id = #{id}
+    </delete>
+
+
+    <delete id="batchDelById">
+        delete from Item where id in
+        <foreach collection="list" item="pid" separator="," open="(" close=")">
+            #{pid}
+        </foreach>
+    </delete>
 </mapper>

@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2021/11/30 16:45
  * @desc
  */
-@Component
+//@Component
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -23,6 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //1. 访问首页登录请求【过滤不需要用户登录，就能访问的页面】
         List<String> list = new ArrayList<>();
         list.add("/user/login");
+
 
         //2.判断请求中是否包含
         String realUrl = request.getContextPath();

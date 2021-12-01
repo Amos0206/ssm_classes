@@ -10,4 +10,10 @@ import com.zc.r.ResultBean;
  */
 public interface IItemService {
     ResultBean queryAll();
+
+    ResultBean deleteItem(Integer id);
+
+    ResultBean batchDelById(String pids);
+
+    ResultBean queryById(Integer id);
 }

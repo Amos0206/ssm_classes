@@ -1,5 +1,6 @@
 package com.zc.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;
@@ -23,8 +24,8 @@ public class Item {
     private String detail;
     private String pic;
     private int cid;
-    private String CREATED_BY;
-    private Date CREATED_TIME;
-    private String UPDATED_BY;
-    private Date UPDATED_TIME;
+    private String createBy;
+    private Date createTime;
+    private String updateBy;
+    private Date updateTime;
 }

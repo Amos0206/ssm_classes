@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @version 1.0
  * @Author ZC
@@ -22,5 +25,16 @@ public class ProductServiceTest {
     @Test
     public void queryAll(){
         System.out.println(iItemService.queryAll());
+    }
+
+    @Test
+    public void del(){
+        System.out.println(iItemService.deleteItem(12));
+    }
+
+    @Test
+    public void batchDel(){
+        String str = "7,10";
+        System.out.println(iItemService.batchDelById(str));
     }
 }

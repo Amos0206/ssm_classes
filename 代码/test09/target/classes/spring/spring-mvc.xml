@@ -12,7 +12,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframew
     <context:component-scan base-package="com.zc.controller"/>
 
     <!--2、处理器映射器、处理器适配器-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
     <!--3、视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,11 +32,29 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframew
 
     <!--6、根据需要的其他配置-->
     <!--拦截器配置-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <!--*: 表示拦截/下的一层 ，**: 表示连接任意-->
-            <mvc:mapping path="/**"/>
-            <bean class="com.zc.Interceptor.LoginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            &lt;!&ndash;*: 表示拦截/下的一层 ，**: 表示连接任意&ndash;&gt;-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            <bean class="com.zc.Interceptor.LoginInterceptor"/>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
+
+    <!--自定义转换器的配置-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean id="patterns" class="com.zc.utils.MySelfConverter">
+                    <property name="patterns">
+                        <list>
+                            <value>yyyy-MM-dd</value>
+                            <value>yyyyMMdd</value>
+                            <value>yyyy.MM.dd</value>
+                            <value>yyyy-MM-dd HH:mm:ss</value>
+                        </list>
+                    </property>
+                </bean>
+            </set>
+        </property>
+    </bean>
 </beans>

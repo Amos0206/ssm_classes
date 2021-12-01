@@ -12,4 +12,11 @@ import java.util.List;
  */
 public interface IItemDao {
     List<Item> selectAllProduct();
+
+    Integer delItem(Integer id);
+
+
+    Integer batchDelById(List<Integer> pids);
+
+    Item queryById(Integer id);
 }
