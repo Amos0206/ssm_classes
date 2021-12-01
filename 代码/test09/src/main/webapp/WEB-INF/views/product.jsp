@@ -181,6 +181,7 @@
         var price  = $("#product_price").val();
         var desc = $("#product_desc").val();
         console.log(name+''+price+''+desc)
+        alert(1)
     }
 
     /*多条件查询*/
