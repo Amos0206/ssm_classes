@@ -28,7 +28,7 @@
             <input type="text" class="form-control" id="pName" placeholder="商品名称">
         </div>
         <div class="col-xs-4">
-            <input type="text" class="form-control" id="pPrice" placeholder="价格">
+            <input type="text" class="form-control" id="pPrice" placeholder="最低价格">
         </div>
         <div class="col-xs-1">
             <button type="button" class="btn btn-info" onclick="query()">查询</button>
@@ -88,23 +88,23 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
-                        <input type="hidden" value="" id="uid">
+                        <input type="hidden" value="" id="pid">
                         <div class="form-group">
                             <label for="product_name" class="col-sm-2 control-label">商品名</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="product_name"  value="" placeholder="用户名">
+                                <input type="text" class="form-control" id="product_name"  value="" placeholder="用户名">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="product_price" class="col-sm-2 control-label">价格</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="product_price"  value="" placeholder="密码">
+                                <input type="text" class="form-control" id="product_price"  value="" placeholder="密码">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="product_desc" class="col-sm-2 control-label">描述</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="product_desc"  value="" placeholder="格式如2020-01-02">
+                                <input type="text" class="form-control" id="product_desc"  value="" placeholder="描述">
                             </div>
                         </div>
                     </form>
@@ -167,6 +167,7 @@
                     $("#proUpModal").modal({
                         backdrop: "static"
                     });
+                    $("#pid").val(id)
                     $("#product_name").val(data.data.name);
                     $("#product_price").val(data.data.price);
                     $("#product_desc").val(data.data.detail);
@@ -177,15 +178,66 @@
     }
     /*编辑修改*/
     function updateItem(){
+        var id  = $("#pid").val();
         var name = $("#product_name").val();
         var price  = $("#product_price").val();
         var desc = $("#product_desc").val();
         console.log(name+''+price+''+desc)
+        $.ajax({
+            type:'get',
+            url:'${pageContext.request.contextPath}/item/update',
+            dataType:'json',
+            data:{
+                'id':id,
+                'name':name,
+                'price':price,
+                'detail':desc
+            },
+            success:function (data){
+                console.log(data)
+                if (data.code == 1000) {
+                    layer.confirm("修改成功", {
+                        title: "提示",
+                        icon: 1
+                    }, function (index) {
+                        window.location.href = "${pageContext.request.contextPath}/item/index"
+                    })
+                } else {
+                    layer.open({
+                        title: '提示'
+                        , content: "修改失败!"
+                        , icon: 2
+                    });
+                }
+            }
+
+        })
     }
 
     /*多条件查询*/
     function query(){
-
+        var name = $("#pName").val();
+        var price = $("#pPrice").val();
+        var map = {
+            'name':name,
+            'price':price
+        };
+        console.log(map);
+        // console.log(data)
+        $.ajax({
+            type:'post',
+            url:'${pageContext.request.contextPath}/item/queryByMany',
+            dataType:'json',
+            data:map,
+            success: function (data){
+                console.log(data)
+                if(data.code == 1000){
+                    lay.msg("多条件查询成功!")
+                }else{
+                    layer.msg('没有符合条件的数据')
+                }
+            }
+        });
     }
 
 

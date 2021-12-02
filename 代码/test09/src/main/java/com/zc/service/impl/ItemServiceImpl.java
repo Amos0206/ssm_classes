@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -62,5 +63,25 @@ public class ItemServiceImpl implements IItemService {
             return  ResultBean.success("success",item);
         }
         return ResultBean.error("failed");
+    }
+
+    @Override
+    public ResultBean updateItem(Item item) {
+        Integer i = iItemDao.updateItem(item);
+        if(i>0){
+            return ResultBean.success("success");
+        }else {
+            return ResultBean.error("failed");
+        }
+    }
+
+    @Override
+    public ResultBean queryManyCond(Map<String, Object> map) {
+        List<Item> items = iItemDao.selectByMany(map);
+        if(items.size()>0){
+            return  ResultBean.success("success",items);
+        }else{
+            return  ResultBean.error("failed");
+        }
     }
 }

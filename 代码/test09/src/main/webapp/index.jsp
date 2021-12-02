@@ -11,5 +11,9 @@
 <a href="${pageContext.request.contextPath}/user/index">登录</a>
 <br>
 <a href="${pageContext.request.contextPath}/item/index">商品管理</a>
+<br>
+<a href="${pageContext.request.contextPath}/toEditUser">测试批量修改数据</a>
+<br>
+<a href="${pageContext.request.contextPath}/toUpload">图片上传</a>
 </body>
 </html>

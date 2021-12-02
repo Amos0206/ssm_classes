@@ -26,6 +26,26 @@
         where id  = #{id}
     </select>
 
+    <select id="selectByMany" parameterType="Map" resultMap="baseMap">
+        select id,name,price,detail,pic,CREATED_TIME from Item
+        <where>
+            <if test="name !='' and name !=null ">
+                and name = #{name}
+            </if>
+            <if test="price !=0">
+                or price > #{price}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateItem" parameterType="Item">
+        update Item
+        set name = #{name},
+            price = #{price},
+            detail =#{detail}
+        where id = #{id}
+    </update>
+
     <delete id="delItem" parameterType="Integer">
         delete from Item where id = #{id}
     </delete>

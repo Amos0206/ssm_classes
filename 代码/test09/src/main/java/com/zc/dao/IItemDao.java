@@ -3,6 +3,7 @@ package com.zc.dao;
 import com.zc.entity.Item;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -19,4 +20,8 @@ public interface IItemDao {
     Integer batchDelById(List<Integer> pids);
 
     Item queryById(Integer id);
+
+    Integer updateItem(Item item);
+
+    List<Item> selectByMany(Map<String, Object> map);
 }

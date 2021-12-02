@@ -1,6 +1,9 @@
 package com.zc.service;
 
+import com.zc.entity.Item;
 import com.zc.r.ResultBean;
+
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -16,4 +19,8 @@ public interface IItemService {
     ResultBean batchDelById(String pids);
 
     ResultBean queryById(Integer id);
+
+    ResultBean updateItem(Item item);
+
+    ResultBean queryManyCond(Map<String,Object> map);
 }

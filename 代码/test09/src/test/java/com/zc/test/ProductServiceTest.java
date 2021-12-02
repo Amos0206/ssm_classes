@@ -8,7 +8,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -36,5 +38,13 @@ public class ProductServiceTest {
     public void batchDel(){
         String str = "7,10";
         System.out.println(iItemService.batchDelById(str));
+    }
+
+    @Test
+    public void selectMany(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("name","面包");
+        map.put("price",17);
+        System.out.println(iItemService.queryManyCond(map).getData());
     }
 }

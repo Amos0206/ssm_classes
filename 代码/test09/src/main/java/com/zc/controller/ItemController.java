@@ -1,14 +1,15 @@
 package com.zc.controller;
 
+import com.zc.entity.Item;
 import com.zc.r.ResultBean;
 import com.zc.service.IItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -51,5 +52,18 @@ public class ItemController {
     @ResponseBody()
     public ResultBean queryById(Integer id){
         return iItemService.queryById(id);
+    }
+
+    @GetMapping("update")
+    @ResponseBody()
+    public ResultBean update(Item item){
+        return iItemService.updateItem(item);
+    }
+
+    @PostMapping("queryByMany")
+    @ResponseBody()
+    public ResultBean queryByMany(@RequestParam Map<String,Object> map){
+//        System.out.println(map);
+        return iItemService.queryManyCond(map);
     }
 }
