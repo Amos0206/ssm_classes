@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>登录界面</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div style="width: 360px;border: 1px solid gray;padding: 30px;border-radius: 10px;margin: 100px auto">
+    <h2 style="margin-left: 80px;margin-bottom: 10px">登录界面</h2>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="username" class="col-sm-3 control-label">用户名</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="username" placeholder="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">密码</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-default" onclick="loginSubmit()">登录</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<script type="text/javascript" src="static/layui/layui.js"></script>
+<script type="text/javascript">
+    var layer;
+    layui.use('layer',function (){
+        layer = layui.layer;
+    })
+
+    function loginSubmit(){
+        // alert(1)
+        var username = $("#username").val();
+        var password = $("#password").val();
+        // alert(username+"-"+password)
+        $.ajax({
+            type:'get',
+            url:"${pageContext.request.contextPath}/user/login",
+            data:{
+                'username':username,
+                'password':password,
+            },
+            dataType:'json',
+            success:function (data){
+                console.log(data)
+                if(data.code==1000){
+                    window.location.href = '${pageContext.request.contextPath}/customer/index';
+                }else{
+                    layer.msg("用户名或密码错误!");
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

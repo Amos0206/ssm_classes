@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    对接口进行实现
+-->
+<mapper namespace="com.zc.dao.ICustomerDao">
+    <select id="selectAll" resultType="Customer">
+        select id,username,jobs,phone from customer
+    </select>
+
+    <select id="selectById" resultType="Customer">
+        select id,username,jobs,phone from customer where id=#{id}
+    </select>
+
+    <insert id="insertData" parameterType="Customer">
+        insert into customer(username,jobs,phone) values(#{username},#{jobs},#{phone})
+    </insert>
+
+    <delete id="delCustomer" parameterType="Integer">
+        delete from customer where id=#{id}
+    </delete>
+
+    <update id="updataCustomer" parameterType="Customer">
+        update customer set username=#{username},jobs=#{jobs},phone=#{phone}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    对接口进行实现
+-->
+<mapper namespace="com.zc.dao.IUserDao">
+    <resultMap id="baseMap" type="User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="createBy" column="CREATED_BY"/>
+        <result property="updateBy" column="UPDATED_BY"/>
+        <result property="createTime" column="CREATED_TIME"/>
+        <result property="updateTime" column="UPDATED_TIME"/>
+    </resultMap>
+    <select id="selectUserByUsername" resultMap="baseMap">
+        select username,password,birthday,sex
+        from user
+        where username = #{username}
+    </select>
+</mapper>
