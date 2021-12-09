@@ -1,0 +1,27 @@
+#应用访问端口
+server:
+  port: 8090
+
+# 数据库连接
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/class_demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  #配置日期格式
+  mvc:
+    date-format: yyyy-MM-dd
+    jackson: #返回时，日期格式化
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+
+#mybatis相关配置
+mybatis:
+  # 配置别名
+  type-aliases-package: com.ahzc.stu.entity
+  # 配置mapper映射文件
+  mapper-locations: classpath:mappers/*Mapper.xml
+
+
+
