@@ -63,6 +63,10 @@
         where id = #{id}
     </update>
 
+    <update id="updatePwd">
+        update t_admin set password = #{password} where username = #{username}
+    </update>
+
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from t_admin where id = #{id}
@@ -73,4 +77,6 @@
         select id,username,password from t_admin
         where username = #{username}
     </select>
+
+
 </mapper>

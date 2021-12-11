@@ -20,7 +20,7 @@
     <![endif]-->
     <script>
         // 是否开启刷新记忆tab功能
-        // var is_remember = false;
+        var is_remember = false;
     </script>
 </head>
 <body class="index">
@@ -33,7 +33,7 @@
     </div>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;">[[${session.userInfo}]]</a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>

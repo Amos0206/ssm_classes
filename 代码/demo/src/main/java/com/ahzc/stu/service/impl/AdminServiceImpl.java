@@ -69,4 +69,24 @@ public class AdminServiceImpl implements IAdminService {
             return ResultBean.error();
         }
     }
+
+    @Override
+    public ResultBean queryByUser(String user) {
+        Admin admin = adminMapper.queryByUsername(user);
+        if(admin!=null){
+            return ResultBean.success("success",admin);
+        }else{
+            return ResultBean.error("failed");
+        }
+    }
+
+    @Override
+    public ResultBean updatePwd(Admin admin) {
+        int i = adminMapper.updatePwd(admin);
+        if(i>0){
+            return ResultBean.success("success",null);
+        }else{
+            return ResultBean.error();
+        }
+    }
 }

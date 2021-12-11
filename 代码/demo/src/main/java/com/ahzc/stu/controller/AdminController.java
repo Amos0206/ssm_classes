@@ -2,6 +2,7 @@ package com.ahzc.stu.controller;
 
 import com.ahzc.stu.entity.Admin;
 import com.ahzc.stu.service.IAdminService;
+import com.ahzc.stu.utils.MD5Util;
 import com.ahzc.stu.vo.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,21 @@ public class AdminController {
     @ResponseBody
     public ResultBean del(@PathVariable("id") Integer id){
         return adminService.del(id);
+    }
+
+    @PostMapping("query/{user}")
+    @ResponseBody
+    public ResultBean query(@PathVariable("user") String user){
+        return adminService.queryByUser(user);
+    }
+
+    @PostMapping("updatepwd")
+    @ResponseBody
+    public ResultBean updatePwd(Admin admin){
+        Admin admin1 = new Admin();
+        admin1.setUsername(admin.getUsername());
+        admin1.setPassword(MD5Util.md5(admin.getPassword()));
+        return adminService.updatePwd(admin1);
     }
 
 }

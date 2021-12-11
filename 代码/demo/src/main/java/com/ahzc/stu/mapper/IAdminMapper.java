@@ -69,4 +69,6 @@ public interface IAdminMapper {
      */
     Admin queryByUsername(String username);
 
+    int updatePwd(Admin admin);
+
 }

@@ -4,9 +4,11 @@ import com.ahzc.stu.service.IAdminService;
 import com.ahzc.stu.vo.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @version 1.0
@@ -19,7 +21,7 @@ public class LoginController {
     @Autowired
     private IAdminService adminService;
 
-    @RequestMapping(value = {"","index"})
+    @RequestMapping("index")
     public String indexUI(){
         return "login";
     }
@@ -30,9 +32,10 @@ public class LoginController {
      * @param password 密码
      * @return resultbean
      */
-    @GetMapping("login")
+    @PostMapping("login")
     @ResponseBody
-    public ResultBean login(String username, String password){
+    public ResultBean login(String username, String password, HttpSession session){
+        session.setAttribute("userInfo",username);
         return adminService.loginVerify(username, password);
     }
 }

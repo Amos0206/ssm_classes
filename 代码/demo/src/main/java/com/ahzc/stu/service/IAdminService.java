@@ -30,4 +30,8 @@ public interface IAdminService {
     ResultBean add(Admin admin);
 
     ResultBean del(Integer id);
+
+    ResultBean queryByUser(String user);
+
+    ResultBean updatePwd(Admin admin);
 }

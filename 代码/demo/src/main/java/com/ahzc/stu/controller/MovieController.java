@@ -4,15 +4,23 @@ import com.ahzc.stu.entity.Movie;
 import com.ahzc.stu.entity.MovieType;
 import com.ahzc.stu.service.IMovieService;
 import com.ahzc.stu.service.IMovieTypeService;
+import com.ahzc.stu.utils.StringUtil;
 import com.ahzc.stu.vo.ResultBean;
+import com.github.tobato.fastdfs.domain.StorePath;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -29,6 +37,12 @@ public class MovieController {
 
     @Autowired
     private IMovieTypeService movieTypeService;
+
+    @Resource
+    private FastFileStorageClient client;
+
+    @Value("${imgBaseServer}")
+    private String imgServer;
 
     /**
      * 电影视图
@@ -129,5 +143,32 @@ public class MovieController {
     @ResponseBody
     public ResultBean editType(MovieType movie){
         return movieTypeService.edit(movie);
+    }
+
+
+    @RequestMapping("uploadImg")
+    @ResponseBody()
+    public ResultBean toUploadFile(MultipartFile dropzFile){
+        //1、获取上传为文件名称
+        String originalFilename = dropzFile.getOriginalFilename();
+//        System.out.println(originalFilename);
+
+        //2、获取文件后缀名
+        String extName = StringUtil.getExtName(originalFilename);
+
+        String fullPath = " ";
+        try {
+            //3、获取文件输入流
+            InputStream is = dropzFile.getInputStream();
+
+            StorePath storePath = client.uploadFile(is, dropzFile.getSize(), extName, null);
+
+            fullPath = storePath.getFullPath();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResultBean.success("success",fullPath);
+
     }
 }
