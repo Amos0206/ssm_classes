@@ -1,5 +1,6 @@
 package com.ahzc.stu;
 
+import com.ahzc.stu.entity.Admin;
 import com.ahzc.stu.entity.Movie;
 import com.ahzc.stu.entity.MovieType;
 import com.ahzc.stu.entity.News;
@@ -35,7 +36,11 @@ class StuApplicationTests {
 
     @Test
     public void admin(){
-        System.out.println(adminService.loginVerify("admin", "123456"));
+//        System.out.println(adminService.loginVerify("admin", "123456"));
+        Admin admin = new Admin();
+        admin.setUsername("root");
+        admin.setPassword("12341234");
+        System.out.println(adminService.updatePwd(admin));
     }
 
     @Test

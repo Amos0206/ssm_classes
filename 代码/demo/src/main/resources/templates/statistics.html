@@ -25,7 +25,7 @@ xmlns:th="http://www.thymeleaf.org">
                         <div class="layui-card-body ">
                             <blockquote class="layui-elem-quote">欢迎管理员：
                                 <span class="x-red">[[${session.userInfo}]]</span>！
-                                当前时间:<span>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}]]</span>
+                                当前时间:<span>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}]]</span>
                             </blockquote>
                         </div>
                     </div>

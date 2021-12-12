@@ -58,13 +58,10 @@ public class AdminController {
         return adminService.queryByUser(user);
     }
 
-    @PostMapping("updatepwd")
+    @PostMapping("updatePwd")
     @ResponseBody
     public ResultBean updatePwd(Admin admin){
-        Admin admin1 = new Admin();
-        admin1.setUsername(admin.getUsername());
-        admin1.setPassword(MD5Util.md5(admin.getPassword()));
-        return adminService.updatePwd(admin1);
+        return adminService.updatePwd(admin);
     }
 
 }

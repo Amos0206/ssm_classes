@@ -74,7 +74,9 @@
                                 <input type="checkbox" name="test" lay-skin="primary" th:value="${movie.getId()}"/> </td>
                             <td th:text="${movie.getId()}"></td>
                             <td th:text="${movie.getName()}"></td>
-                            <td th:text="${movie.getImg()}"></td>
+                            <td>
+                               <img th:src="|${imgServer}/${movie.getImg()}|" width="100px" height="200px"/>
+                            </td>
                             <td th:text="${movie.getDirector()}"></td>
                             <td th:text="${movie.getActor()}"></td>
                             <td th:text="${movie.getType()}"></td>

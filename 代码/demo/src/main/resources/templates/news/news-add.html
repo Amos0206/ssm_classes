@@ -38,9 +38,9 @@
             </div>
             <div class="layui-form-item">
                 <label for="create_date" class="layui-form-label">
-                    <span class="x-red">*</span>创建时间</label>
+                    <span class="x-red">*</span>发布时间</label>
                 <div class="layui-input-inline layui-show-xs-block">
-                    <input class="layui-input" placeholder="发布日期" name="create_date" id="create_date"></div>
+                    <input class="layui-input" placeholder="yyyy-MM-dd" name="create_date" id="create_date"></div>
             </div>
 
             <div class="layui-form-item">
@@ -63,12 +63,17 @@
         </form>
     </div>
 </div>
-<script>layui.use(['form', 'layer'],
+<script>layui.use(['form', 'layer','laydate'],
     function () {
         $ = layui.jquery;
         var form = layui.form,
-            layer = layui.layer;
+            layer = layui.layer,
+            laydate=layui.laydate;
 
+
+        laydate.render({
+            elem: '#create_date'
+        });
 
         //监听提交
         form.on('submit(add)',

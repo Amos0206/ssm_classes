@@ -55,6 +55,7 @@ public class MovieController {
 //        System.out.println(movie);
         model.addAttribute("types",movieTypeService.queryAll(null));
         model.addAttribute("movies",iMovieService.queryAll(movie));
+        model.addAttribute("imgServer",imgServer);
         return "movie/movie-list";
     }
 

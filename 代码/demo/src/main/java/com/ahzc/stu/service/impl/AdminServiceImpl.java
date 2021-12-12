@@ -82,7 +82,10 @@ public class AdminServiceImpl implements IAdminService {
 
     @Override
     public ResultBean updatePwd(Admin admin) {
-        int i = adminMapper.updatePwd(admin);
+        Admin admin1 = new Admin();
+        admin1.setUsername(admin.getUsername());
+        admin1.setPassword(MD5Util.md5(admin.getPassword()));
+        int i = adminMapper.updatePwd(admin1);
         if(i>0){
             return ResultBean.success("success",null);
         }else{
